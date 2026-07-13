@@ -1,0 +1,485 @@
+﻿Codex Build Goal: SaleScout Phase 1 MVP
+You are building Phase 1 of SaleScout, a mobile-first, AI-powered garage sale discovery app.
+SaleScout helps users discover nearby garage sales through a crowdsourced map. Instead of requiring
+every sale owner to manually create a listing, users can quickly report garage sales they find by taking a
+photo. The app uses location, photo upload, timestamp, and AI-generated metadata to create temporary
+garage sale listings that other users can verify through check-ins.
+The core product loop is:
+Snap
+->
+Auto-List
+->
+Discover
+->
+Check In
+->
+Verify
+->
+Expire
+The Phase 1 goal is to build a working MVP where users can:
+Sign up and log in.
+View nearby garage sales on a map.
+Create a crowdsourced garage sale listing by taking/uploading a photo.
+Automatically attach the user's current GPS location to the listing.
+Add optional title, description, categories, and comments.
+See active listings near them.
+Tap a listing to view details.
+Check in at a sale.
+Report whether the sale is still open, closed, worth the stop, picked over, or category-specific.
+Add comments to a listing.
+Save favorite listings.
+Automatically expire listings after 48 hours of inactivity.
+Allow listings to close sooner if enough users report that the sale is closed.
+Recommended Tech Stack
+Use:
+React Native with Expo
+TypeScript
+Supabase
+Supabase Auth
+Supabase PostgreSQL
+Supabase Storage
+Supabase Edge Functions
+Google Maps or Mapbox
+Expo Location
+Expo Image Picker
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+1
+Stripe later, but not required for Phase 1
+Phase 1 Product Scope
+Authentication
+Build:
+Sign up
+Log in
+Log out
+User profile table
+Basic username/display name
+Use Supabase Auth.
+Map Screen
+Build the main map screen.
+Features:
+Show user's current location
+Show active garage sale pins nearby
+Pins should only show listings that are active and not expired
+Tapping a pin opens a sale preview card
+Preview card shows photo, title, distance, last verified time, and status
+Button to open full sale detail screen
+Create Listing Flow
+The listing creation flow should be extremely fast.
+Primary CTA:
+Report Sale
+Flow:
+User taps Report Sale.
+User takes or uploads a photo.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+1.
+2.
+2
+App gets current GPS location.
+App creates a new sale listing.
+User can optionally add:
+Title
+Description
+Categories
+Comment
+Listing is saved as active.
+Default listing title if user enters nothing:
+Garage Sale Nearby
+Default description:
+Crowdsourced garage sale reported by a SaleScout user.
+AI Placeholder
+For Phase 1, create the structure for AI but do not require full AI integration yet.
+Add a backend function placeholder called:
+generateSaleMetadataFromPhoto
+Future behavior:
+Analyze photo
+Detect items
+Generate title
+Generate description
+Suggest categories
+For now, return simple mock metadata.
+Example:
+Title: Garage Sale Nearby
+Description: Crowdsourced garage sale reported by a SaleScout user.
+Categories: General, Furniture, Tools, Toys
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+-
+-
+-
+-
+-
+3
+Sale Detail Screen
+Each listing should show:
+Main photo
+Title
+Description
+Address approximation or neighborhood
+Distance from user
+Created time
+Last verified time
+Current status
+Categories
+Comments
+Check-in/report buttons
+Save favorite button
+Do not display the exact reporter's home address. Use GPS only for the sale location.
+Check-In and Verification System
+Users should be able to submit quick reports.
+Report options:
+Still Open
+Closed
+Worth the Stop
+Picked Over
+Mostly Tools
+Mostly Furniture
+Mostly Baby Items
+Mostly Electronics
+Mostly Collectibles
+Easy Parking
+Cash Only
+Accepts Venmo
+Each report should include:
+user_id
+sale_id
+report_type
+optional comment
+timestamp
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+4
+user location if permission is granted
+When a user reports "Still Open":
+Update last_verified_at
+Keep listing active
+When users report "Closed":
+Increment closed report count
+If 2 or more unique users report Closed, mark the listing inactive
+Comments
+Users can comment on listings.
+Examples:
+"Still going strong."
+"Mostly kids clothes."
+"Lots of tools in the garage."
+"Looks picked over now."
+"Owner said they are closing at 2."
+Comments should be shown in chronological order, newest first.
+Listing Expiration Logic
+Listings should expire automatically.
+Rules:
+A listing expires 48 hours after created_at by default.
+A listing also expires if it has not received a "Still Open" verification in the past 24 hours.
+A listing closes early if 2 or more unique users mark it as Closed.
+Expired or closed listings should not appear on the main map.
+Expired listings may remain in the database for history and analytics.
+Create a scheduled job or backend function to mark stale listings inactive.
+Favorites
+Users can save listings.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+1.
+2.
+3.
+4.
+5.
+5
+Build:
+Favorite button
+Saved listings screen
+Remove favorite
+Database Schema
+Create these tables:
+profiles
+Fields:
+id uuid primary key references auth.users
+username text
+display_name text
+avatar_url text
+created_at timestamp
+updated_at timestamp
+sales
+Fields:
+id uuid primary key
+created_by uuid references profiles(id)
+title text
+description text
+photo_url text
+latitude double precision
+longitude double precision
+approximate_address text
+status text default 'active'
+categories text[]
+created_at timestamp
+updated_at timestamp
+last_verified_at timestamp
+expires_at timestamp
+closed_report_count integer default 0
+source text default 'crowdsourced'
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+6
+Allowed status values:
+active
+closed
+expired
+flagged
+sale_reports
+Fields:
+id uuid primary key
+sale_id uuid references sales(id)
+user_id uuid references profiles(id)
+report_type text
+comment text
+latitude double precision
+longitude double precision
+created_at timestamp
+Allowed report_type values:
+still_open
+closed
+worth_the_stop
+picked_over
+mostly_tools
+mostly_furniture
+mostly_baby_items
+mostly_electronics
+mostly_collectibles
+easy_parking
+cash_only
+accepts_venmo
+sale_comments
+Fields:
+id uuid primary key
+sale_id uuid references sales(id)
+user_id uuid references profiles(id)
+comment text
+created_at timestamp
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+7
+favorites
+Fields:
+id uuid primary key
+user_id uuid references profiles(id)
+sale_id uuid references sales(id)
+created_at timestamp
+Create unique constraint on user_id and sale_id.
+listing_photos
+Fields:
+id uuid primary key
+sale_id uuid references sales(id)
+uploaded_by uuid references profiles(id)
+photo_url text
+created_at timestamp
+Required Screens
+Build these screens:
+Auth Screen
+Map Screen
+Create Listing Screen
+Sale Detail Screen
+Saved Listings Screen
+Profile Screen
+Basic Settings Screen
+Navigation
+Use a simple tab structure:
+Map
+Report Sale
+Saved
+-
+-
+-
+-
+-
+-
+-
+-
+-
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+-
+-
+-
+8
+Profile
+MVP User Stories
+User Story 1
+As a user, I want to open the app and see nearby active garage sales on a map so I can quickly decide where
+to go.
+User Story 2
+As a user, I want to take a photo of a garage sale sign or driveway sale so the app can quickly create a listing
+for other users.
+User Story 3
+As a user, I want to check in and report whether a sale is still open so others do not waste time.
+User Story 4
+As a user, I want to comment on a sale so others know what kind of items are available.
+User Story 5
+As a user, I want old sales to disappear automatically so the map stays accurate.
+Important Product Principle
+Phase 1 should prioritize speed and usefulness over perfection.
+The app should make it extremely easy for users to contribute a sale in under 15 seconds.
+The fastest contribution flow is more important than seller-side listing customization.
+Initial Build Tasks
+Start by generating:
+Project setup using Expo + TypeScript.
+-
+1.
+9
+Supabase client setup.
+Authentication screens.
+Database schema SQL migration.
+Main tab navigation.
+Map screen with current location.
+Sales table integration.
+Create listing flow with photo upload and GPS capture.
+Sale detail screen.
+Check-in/report system.
+Comments.
+Favorites.
+Expiration logic.
+Build incrementally and keep the code modular.
+Use clean file organization:
+/src /components /screens /navigation /services /hooks /types /utils /constants /lib
+Prioritize maintainability, strong TypeScript types, and clear comments.
+Do not build Phase 2 gamification yet, but structure the app so XP, badges, leaderboards, and treasure
+uploads can be added later.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+10

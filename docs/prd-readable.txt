@@ -1,0 +1,633 @@
+﻿SaleScout Product Requirements Document (PRD)
+Version:
+2.0
+Project Status:
+MVP Planning
+Platform:
+iOS, Android, Web Admin
+Vision:
+Build the world's
+largest AI-powered treasure hunting network for garage sales, estate sales, flea markets, and local deals.
+1. Vision
+SaleScout is more than a garage sale finder.
+It is a social treasure hunting platform that helps users discover amazing local deals while creating a
+community around finding, sharing, and competing for the best treasures.
+Instead of simply showing garage sale listings, SaleScout becomes the operating system for weekend
+treasure hunters.
+Every Saturday morning people open SaleScout to:
+Discover nearby sales
+Plan their route
+Hunt for deals
+Share their finds
+Compete with friends
+Earn rewards
+Our long-term goal is to become the "Waze + Pokmon GO + Instagram" for treasure hunting.
+2. Core Problem
+Today's garage sale discovery is fragmented.
+Buyers rely on:
+Facebook Groups
+Craigslist
+Yard signs
+Word of mouth
+Random driving
+Problems include:
+Missing good sales
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+1
+Wasting fuel
+Poor organization
+No search by item
+No optimized routes
+No live updates
+Sellers struggle because:
+Limited visibility
+Dicult promotion
+No analytics
+Low attendance
+3. Solution
+SaleScout provides one platform where buyers can:
+Discover nearby sales
+Search for specific items
+View AI-generated recommendations
+Plan optimized routes
+Receive treasure alerts
+Share finds
+Earn achievements
+Compete on leaderboards
+Sellers can:
+Create listings in under 60 seconds
+Upload photos
+Use AI-generated descriptions
+Promote listings
+Reach more buyers
+View trac analytics
+4. Product Philosophy
+SaleScout is NOT another marketplace.
+We are building an intelligent discovery platform powered by community-generated data and artificial
+intelligence.
+Every interaction improves the experience for every user.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+2
+5. Core Product Pillars
+Pillar 1 Discover
+Users discover nearby garage sales.
+Features:
+Interactive map
+Nearby search
+Category filters
+AI recommendations
+Saved searches
+Route planning
+Pillar 2 Hunt
+Users travel to sales.
+During the hunt users can:
+Check into sales
+Mark sales as visited
+Save favorites
+Report inventory
+Report crowds
+Leave ratings
+Pillar 3 Share
+After purchasing an item users upload:
+Photos
+Purchase price
+Estimated value
+Story
+The app generates a Treasure Score.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+3
+Pillar 4 Compete
+Users earn:
+XP
+Levels
+Badges
+Achievements
+Weekly rankings
+Competition drives retention.
+6. AI Features
+AI Item Recognition
+Users upload photos.
+AI automatically identifies:
+Tools
+Furniture
+Electronics
+Toys
+Appliances
+Collectibles
+Vintage items
+Sporting goods
+Clothing
+Musical instruments
+Detected items become searchable.
+AI Match Score
+Users select interests.
+Examples:
+Milwaukee Tools
+Pokmon Cards
+LEGO
+Furniture
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+4
+Mid-Century Modern
+Vinyl Records
+Nearby sales receive personalized scores.
+Example:
+Garage Sale A
+96% Match
+Garage Sale B
+89% Match
+Garage Sale C
+82% Match
+AI Route Planner
+"Plan My Saturday"
+Inputs:
+Starting location
+Available time
+Categories
+Maximum driving distance
+Outputs:
+Optimized driving route
+Estimated arrival times
+Estimated shopping time
+This is our flagship feature.
+AI Treasure Valuation
+When a user uploads a find:
+-
+-
+-
+-
+-
+-
+-
+-
+-
+5
+AI estimates:
+Retail value
+Resale value
+Category
+Brand
+Rarity
+Treasure Score:
+Estimated Value Purchase Price
+Example:
+Paid: $20
+Estimated Value: $300
+Treasure Score:
+15x
+7. Social Platform
+Treasure Feed
+Users share:
+Best finds
+Before/after restorations
+Flips
+Collections
+Feed supports:
+Likes
+Comments
+Shares
+Following
+Categories
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+6
+Profiles
+Every user has:
+Avatar
+Username
+Level
+XP
+Badges
+Treasure Count
+Total Savings
+Estimated Profit
+Favorite Categories
+Following
+Users follow:
+Friends
+Top hunters
+Local experts
+Estate sale companies
+8. Gamification
+Users earn XP.
+Examples:
+Create account
+7
++100 XP
+Visit sale
++50 XP
+Upload treasure
++150 XP
+Invite friend
++300 XP
+Daily login
++20 XP
+Share post
++25 XP
+Verified report
++75 XP
+Levels
+Level 1
+Rookie Scout
+Level 5
+Weekend Warrior
+Level 10
+Treasure Hunter
+Level 20
+Elite Scout
+8
+Level 40
+Master Collector
+Level 60
+Treasure Legend
+Badges
+First Find
+Garage Sale Addict
+Tool Hunter
+Vintage Hunter
+Furniture King
+Toy Expert
+Estate Explorer
+100 Sales Visited
+100 Finds Uploaded
+Top 10 Weekly
+Perfect Treasure Score
+Streaks
+Consecutive weekends hunting.
+Examples:
+2 Week Streak
+10 Week Streak
+9
+25 Week Streak
+Longer streaks unlock exclusive badges.
+9. Community Intelligence
+Users can report:
+Worth the Stop
+Hidden Gem
+Picked Over
+Mostly Furniture
+Mostly Baby Items
+Mostly Tools
+Mostly Collectibles
+Mostly Electronics
+Crowded
+Easy Parking
+Cash Only
+Accepts Venmo
+Every report improves recommendations.
+10. Live Sale Intelligence
+Real-time updates include:
+Current popularity
+Recent visitors
+10
+Reported categories
+Reported treasures
+Crowd level
+Estimated remaining inventory
+11. Treasure Alerts
+Users subscribe to categories.
+Examples:
+DeWalt
+Milwaukee
+Snap-On
+Pokmon
+Vintage Toys
+Lego
+Apple
+Vinyl
+When community reports match:
+Push Notification:
+"Milwaukee tools reported 1.8 miles away."
+12. Leaderboards
+Weekly
+Monthly
+11
+All Time
+Categories:
+Most XP
+Most Treasure Value
+Most Sales Visited
+Highest Treasure Score
+Most Helpful Reporter
+Top Flipper
+Best Collector
+Local City Champion
+13. Revenue Model
+Free Tier
+Search sales
+Map
+Basic filters
+Basic routes
+Treasure feed
+Social features
+SaleScout Pro ($4.99/month)
+Advanced filters
+Unlimited saved searches
+12
+Treasure alerts
+AI recommendations
+Priority notifications
+Advanced route planning
+Exclusive badges
+FlipScout Pro ($9.99/month)
+Designed for resellers.
+Includes:
+Estimated resale value
+Market pricing
+ROI calculator
+Profit tracking
+Flip analytics
+Historical value charts
+Inventory management
+Featured Listings
+Garage Sale
+$5
+Estate Sale
+$15-$25
+Professional Estate Sale Subscription
+13
+Monthly plans
+Verified badge
+Priority placement
+Analytics
+Advertising
+Sponsored routes
+Sponsored categories
+Sponsored challenges
+Local business advertising
+Banner placements
+Aliate Revenue
+Moving companies
+Storage units
+Cleaning services
+Appraisers
+Auction houses
+Shipping services
+Collectible grading
+Referral commissions
+14. Growth Engine
+Every action creates value.
+14
+User uploads treasure.
+Treasure enters database.
+AI learns.
+Recommendations improve.
+Users find better sales.
+Users share finds.
+Friends install app.
+More sellers list sales.
+More treasure discovered.
+Repeat.
+15. Viral Features
+Treasure Cards
+Automatically generate shareable graphics showing:
+15
+Item
+Price Paid
+Estimated Value
+Treasure Score
+Found via SaleScout
+Perfect for Facebook, Instagram, TikTok, Reddit, and X.
+Referral System
+Scout Squad
+Invite friends.
+Rewards:
+1 Friend
+100 XP
+5 Friends
+Exclusive Badge
+10 Friends
+Free Pro Month
+25 Friends
+Elite Status
+100 Friends
+Founding Scout Badge
+16
+16. Success Metrics
+Year One
+5,000 users
+500 monthly listings
+1,000 monthly active users
+Kansas City market validation
+Year Two
+25,000 users
+Expand into multiple metro areas
+Launch advertising platform
+Launch Pro subscriptions
+Year Three
+100,000+ users
+Nationwide expansion
+One million treasure uploads
+Largest community-generated garage sale dataset in the United States
+17. Technical Architecture
+Frontend
+React Native (Expo)
+TypeScript
+-
+-
+17
+Backend
+Supabase
+PostgreSQL
+Edge Functions
+Authentication
+Supabase Auth
+Google Sign-In
+Apple Sign-In
+Storage
+Supabase Storage
+Maps
+Google Maps API
+Mapbox (future evaluation)
+Notifications
+Firebase Cloud Messaging
+Apple Push Notifications
+AI Services
+OpenAI
+Vision AI
+Image Recognition
+Payments
+Stripe
+Analytics
+PostHog
+Supabase Analytics
+18. MVP (Phase 1)
+Must Have
+User authentication
+Interactive map
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+18
+Garage sale listings
+Create/edit listings
+Photo uploads
+Basic AI description generation
+Search and filters
+Save favorites
+"Plan My Saturday" route planner
+Seller dashboard
+Featured listing payments
+19. Phase 2
+Treasure feed
+Profiles
+XP
+Levels
+Badges
+Check-ins
+Live reports
+Community ratings
+Treasure uploads
+Leaderboards
+Referral system
+20. Phase 3
+AI treasure valuation
+Treasure alerts
+FlipScout Pro
+Sponsored challenges
+Heat maps
+Predictive sale scoring
+Local advertising marketplace
+Aliate marketplace
+Estate sale business dashboard
+21. North Star Vision
+Every weekend, treasure hunters open SaleScout before they leave the house, use it while they are hunting,
+and share their best finds when they get home.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+19
+The habit loop is:
+Plan
+->
+Hunt
+->
+Share
+->
+Compete
+->
+Repeat
+Every user interaction creates more data, better recommendations, stronger community engagement, and
+increasing network eects, making SaleScout the most valuable and defensible treasure hunting platform
+in the market.
+20

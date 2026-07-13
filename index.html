@@ -1,0 +1,204 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SaleScout</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">SS</span>
+          <div>
+            <h1>SaleScout</h1>
+            <p id="locationSummary">Chicago demo area</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <label class="search-field" for="searchInput">
+            <span class="sr-only">Search sales</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16.5 16.5 4 4"></path></svg>
+            <input id="searchInput" type="search" placeholder="Search sales or streets">
+          </label>
+          <button class="primary-action" id="openReportButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+            Report sale
+          </button>
+          <button class="secondary-action profile-button" id="profileButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.8-4 5-6 8-6s6.2 2 8 6"></path></svg>
+            Sign in
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="sidebar" aria-label="Sale filters and list">
+          <section class="control-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Active sales</h2>
+                <p id="activeCount">0 open now</p>
+              </div>
+              <button class="icon-button" id="locateButton" type="button" aria-label="Use my location" title="Use my location">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><circle cx="12" cy="12" r="4"></circle></svg>
+              </button>
+            </div>
+            <div class="segmented" role="group" aria-label="Sale type">
+              <button class="segment active" data-type-filter="all" type="button">All</button>
+              <button class="segment" data-type-filter="garage" type="button">Garage</button>
+              <button class="segment" data-type-filter="yard" type="button">Yard</button>
+              <button class="segment" data-type-filter="estate" type="button">Estate</button>
+            </div>
+            <div class="app-tabs" role="tablist" aria-label="SaleScout screens">
+              <button class="tab active" data-view="map" type="button">Map</button>
+              <button class="tab" data-view="saved" type="button">Saved</button>
+              <button class="tab" data-view="route" type="button">Route</button>
+              <button class="tab" data-view="profile" type="button">Profile</button>
+            </div>
+            <div class="filter-row" role="group" aria-label="List filters">
+              <label class="toggle"><input id="openOnlyToggle" type="checkbox" checked><span>Open now</span></label>
+              <label class="toggle"><input id="favoritesOnlyToggle" type="checkbox"><span>Favorites</span></label>
+            </div>
+            <label class="range-field" for="radiusSelect">
+              <span>Distance</span>
+              <select id="radiusSelect">
+                <option value="2">Within 2 mi</option>
+                <option value="5">Within 5 mi</option>
+                <option value="10" selected>Within 10 mi</option>
+                <option value="25">Within 25 mi</option>
+                <option value="all">Any distance</option>
+              </select>
+            </label>
+          </section>
+          <section class="list-panel" aria-label="Nearby sales">
+            <div id="saleList" class="sale-list"></div>
+          </section>
+        </aside>
+
+        <section class="map-region" aria-label="Sale map">
+          <div class="map-toolbar">
+            <div class="status-strip">
+              <span id="mapCenterLabel">Map center</span>
+              <span id="lastUpdatedLabel">Updated now</span>
+            </div>
+            <div class="zoom-controls" role="group" aria-label="Map zoom">
+              <button class="icon-button" id="zoomOutButton" type="button" aria-label="Zoom out" title="Zoom out"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"></path></svg></button>
+              <button class="icon-button" id="zoomInButton" type="button" aria-label="Zoom in" title="Zoom in"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></button>
+            </div>
+          </div>
+          <div id="mapCanvas" class="map-canvas" tabindex="0" aria-label="Interactive map of active sales">
+            <svg class="map-art" viewBox="0 0 1000 700" aria-hidden="true" preserveAspectRatio="none">
+              <defs><pattern id="minorGrid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0v48" fill="none"></path></pattern></defs>
+              <rect width="1000" height="700" class="map-base"></rect>
+              <rect width="1000" height="700" fill="url(#minorGrid)" class="map-grid"></rect>
+              <path class="park-shape" d="M70 70C185 15 290 40 365 130c62 76 45 175-35 226-96 61-235 22-290-63C-10 216-21 115 70 70Z"></path>
+              <path class="water-shape" d="M780 5c74 88 117 178 128 270 11 94-10 205-63 333 87-14 139-35 155-63V0Z"></path>
+              <path class="road road-main" d="M0 438C165 395 294 386 387 411c125 34 238 27 339-21 91-43 183-53 274-31"></path>
+              <path class="road road-main" d="M181 700C250 569 330 470 421 404c113-82 190-217 232-404"></path>
+              <path class="road road-secondary" d="M0 194c129 21 254 24 375 9 164-21 342-3 536 54"></path>
+              <path class="road road-secondary" d="M113 0c41 111 74 228 99 351 22 106 25 222 10 349"></path>
+              <path class="road road-secondary" d="M507 0c-21 84-22 178-3 282 18 104 12 243-19 418"></path>
+              <path class="road road-minor" d="M0 571c180-37 333-33 459 14 118 43 298 52 541 25"></path>
+              <path class="road road-minor" d="M321 0c16 99 12 195-12 288-30 115-29 252 4 412"></path>
+              <path class="road road-minor" d="M704 0c-15 116-9 232 18 349 25 107 26 224 4 351"></path>
+            </svg>
+            <div id="pinLayer" class="pin-layer"></div>
+            <div id="userMarker" class="user-marker" aria-hidden="true"></div>
+            <div class="map-empty" id="mapEmptyState" hidden>No matching active sales</div>
+          </div>
+        </section>
+
+        <aside class="detail-panel" aria-label="Sale details">
+          <div id="emptyDetail" class="empty-detail">
+            <h2>Choose a sale</h2>
+            <p>Open pins and list items show the latest report, hours, distance, and confirmations.</p>
+          </div>
+          <article id="saleDetail" class="sale-detail" hidden></article>
+        </aside>
+      </main>
+    </div>
+
+    <dialog id="reportDialog" class="report-dialog">
+      <form id="reportForm" method="dialog">
+        <div class="dialog-header">
+          <div>
+            <h2>Report a sale</h2>
+            <p id="reportLocationHint">Pin will drop near the current map center.</p>
+          </div>
+          <button class="icon-button" id="closeReportButton" value="cancel" formnovalidate type="button" aria-label="Close" title="Close"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+        </div>
+        <div class="form-grid">
+          <label><span>Sale type</span><select id="saleType" required><option value="garage">Garage sale</option><option value="yard">Yard sale</option><option value="estate">Estate sale</option><option value="moving">Moving sale</option></select></label>
+          <label><span>Photo</span><input id="salePhoto" type="file" accept="image/*" capture="environment"></label>
+          <div class="photo-preview wide" id="photoPreview" hidden>
+            <img id="photoPreviewImage" alt="">
+            <button class="icon-button" id="clearPhotoButton" type="button" aria-label="Remove photo" title="Remove photo"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+          </div>
+          <label><span>Title</span><input id="saleTitle" maxlength="70" placeholder="Garage Sale Nearby"></label>
+          <label class="wide"><span>Address or nearby cross streets</span><input id="saleAddress" maxlength="110" placeholder="1200 block of Maple Ave"></label>
+          <label><span>Open from</span><input id="startsAt" type="datetime-local" required></label>
+          <label><span>Open until</span><input id="endsAt" type="datetime-local" required></label>
+          <label class="wide"><span>Highlights</span><textarea id="saleDescription" maxlength="220" rows="3" placeholder="Furniture, kids clothes, tools, records"></textarea></label>
+          <fieldset class="wide category-field">
+            <legend>Categories</legend>
+            <label><input type="checkbox" name="saleCategory" value="tools">Tools</label>
+            <label><input type="checkbox" name="saleCategory" value="furniture">Furniture</label>
+            <label><input type="checkbox" name="saleCategory" value="baby_items">Baby items</label>
+            <label><input type="checkbox" name="saleCategory" value="electronics">Electronics</label>
+            <label><input type="checkbox" name="saleCategory" value="collectibles">Collectibles</label>
+            <label><input type="checkbox" name="saleCategory" value="clothing">Clothing</label>
+          </fieldset>
+          <label class="wide"><span>Scout note</span><textarea id="saleComment" maxlength="180" rows="2" placeholder="Mostly tools in the garage, easy parking"></textarea></label>
+        </div>
+        <div class="location-picker" role="group" aria-label="Report location">
+          <button class="secondary-action" id="useMapCenterButton" type="button"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v20"></path><path d="M2 12h20"></path></svg>Use map center</button>
+          <button class="secondary-action" id="useCurrentLocationButton" type="button"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><circle cx="12" cy="12" r="4"></circle></svg>Use my location</button>
+        </div>
+
+        <div class="report-map-panel">
+          <div class="report-map-heading">
+            <strong>Sale pin</strong>
+            <output id="reportCoordinateLabel">41.8781, -87.6298</output>
+          </div>
+          <div id="reportMapPicker" class="report-map-picker" tabindex="0" role="application" aria-label="Sale pin location picker">
+            <span class="report-road report-road-main"></span>
+            <span class="report-road report-road-side"></span>
+            <span class="report-road report-road-cross"></span>
+            <span id="reportPinPreview" class="report-pin-preview" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="secondary-action" id="cancelReportButton" type="button">Cancel</button>
+          <button class="primary-action" type="submit">Add sale</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="profileDialog" class="profile-dialog">
+      <form id="profileForm" method="dialog">
+        <div class="dialog-header">
+          <div>
+            <h2>Your SaleScout profile</h2>
+            <p>Local scout identity</p>
+          </div>
+          <button class="icon-button" id="closeProfileButton" value="cancel" formnovalidate type="button" aria-label="Close" title="Close"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+        </div>
+        <div class="form-grid">
+          <label><span>Username</span><input id="profileUsername" maxlength="32" placeholder="saturdayhunter" autocomplete="username"></label>
+          <label><span>Display name</span><input id="profileDisplayName" maxlength="60" placeholder="Saturday Hunter"></label>
+          <label><span>Default distance</span><select id="defaultRadiusSelect"><option value="2">Within 2 mi</option><option value="5">Within 5 mi</option><option value="10">Within 10 mi</option><option value="25">Within 25 mi</option><option value="all">Any distance</option></select></label>
+          <label><span>Default list</span><select id="defaultOpenOnlySelect"><option value="open">Open now</option><option value="all">All active listings</option></select></label>
+        </div>
+        <div class="dialog-actions">
+          <button class="secondary-action" id="signOutButton" type="button">Sign out</button>
+          <button class="primary-action" type="submit">Save profile</button>
+        </div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script src="app.js"></script>
+  </body>
+</html>
+

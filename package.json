@@ -1,0 +1,12 @@
+﻿{
+    "name":  "salescout",
+    "version":  "0.1.0",
+    "private":  true,
+    "type":  "module",
+    "description":  "Phase 1 local MVP for crowdsourced garage sale discovery.",
+    "scripts":  {
+                    "start":  "node server.js",
+                    "build":  "node scripts/build-sites.mjs",
+                    "test":  "node scripts/api-smoke.mjs"
+                }
+}

@@ -69,9 +69,42 @@ export function ListingDetail({ sale, open, onOpenChange, saved, onToggleSave, o
 
           <section className="detail-section community-checkin">
             <div className="detail-section-title"><div><h3>Help the next scout</h3><p>One tap keeps this listing accurate.</p></div><UsersThree size={24} weight="duotone" /></div>
-            <ToggleGroup type="single" value="" onValueChange={…4485 tokens truncated…  >
-      <Icon size={23} weight={active ? "fill" : "regular"} />
-      <span>{item.label}</span>
-    </button>
+            <ToggleGroup type="single" value="" onValueChange={(value) => value && onReport(sale.id, value)} disabled={Boolean(pending)} aria-label="Community sale updates">
+              {communityActions.map((action) => {
+                const Icon = action.icon;
+                return <ToggleGroupItem key={action.value} value={action.value} className={action.danger ? "community-danger" : ""}><Icon size={19} weight="duotone" />{action.label}</ToggleGroupItem>;
+              })}
+            </ToggleGroup>
+          </section>
+
+          <section className="detail-section">
+            <h3>Scout notes</h3>
+            <form className="note-form" onSubmit={submitNote}>
+              <label htmlFor={`note-${sale.id}`}>Add a quick note</label>
+              <div><input id={`note-${sale.id}`} name="note" value={note} onChange={(event) => setNote(event.target.value)} maxLength={220} placeholder="Prices, parking, new items..." /><Button type="submit" variant="secondary" disabled={!note.trim() || Boolean(pending)}><ChatCircleDots size={18} />Post</Button></div>
+            </form>
+            <div className="comment-list">
+              {(sale.comments || []).length ? [...sale.comments].slice(-5).reverse().map((comment) => (
+                <article key={comment.id}><div><strong>{comment.profileName || "Local scout"}</strong><time dateTime={comment.createdAt}>{relativeTime(comment.createdAt)}</time></div><p>{comment.body}</p></article>
+              )) : <p className="muted-copy">No scout notes yet. Be the first to help.</p>}
+            </div>
+          </section>
+
+          {similarSales.length ? (
+            <section className="detail-section">
+              <h3>More nearby</h3>
+              <div className="similar-sales">
+                {similarSales.slice(0, 2).map((nearby) => (
+                  <button type="button" key={nearby.id} onClick={() => onSelectSimilar(nearby.id)}>
+                    {getSalePhoto(nearby) ? <img src={getSalePhoto(nearby)} alt="" /> : <Storefront size={24} />}
+                    <span><strong>{nearby.title}</strong><small>{formatDistance(nearby.distance)} · {relativeTime(nearby.updatedAt)}</small></span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : null}
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }

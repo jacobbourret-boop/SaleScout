@@ -1,54 +1,42 @@
-﻿# SaleScout Phase 1
+# SaleScout
 
-SaleScout is a local Phase 1 MVP for discovering nearby garage, yard, estate, and moving sales.
+SaleScout is a mobile-first, crowdsourced garage-sale discovery app built with React and Vite. The private-beta production architecture uses:
 
-## What is included
+- Vercel for the web app
+- Supabase Postgres for sales, reports, profiles, and beta feedback
+- Supabase Storage for sale photos
+- Supabase Auth for email magic links and optional social sign-in
 
-- Shared active-sale board backed by a small local API and `data/sales.json`
-- Active sales list with search, sale-type filters, distance radius filtering, open-now filtering, and favorites filtering
-- Visual map surface with sale pins, current map center, and zoom controls
-- Quick report form for adding a sale with optional photo upload, address/cross-streets, hours, type, highlights, categories, note, and a map/current-location pin
-- Shared photo reports are stored as local files under `data/uploads/` and served back through `/uploads/...`
-- Approximate address display so exact-looking street numbers become block-level sale locations
-- Basic metadata fallback for fast photo-first reports: blank titles become "Garage Sale Nearby" and blank descriptions get a crowdsourced default
-- Sale detail panel with photo, hours, distance, categories, confirmations, closed reports, directions, saved favorites, check-ins, and recent notes
-- Rich quick reports for still open, closed, worth the stop, picked over, category-specific inventory, parking, cash-only, and Venmo
-- Automatic lifecycle rules for stale listings: 48-hour expiry, 24-hour no-verification expiry, and closure after 2 unique closed reports
-- Lightweight local sign-in/profile, saved listings tab, profile tab, and basic default settings
-- Shared listings and comments carry the local scout identity when signed in
-- Route planner tab for saved or nearby open sales with ordered stops and a Google Maps route link
-- Personal favorites, profile, and map preferences stored in the current browser
+Public visitors can browse. Signed-in testers can publish sales, upload photos, add notes, confirm/close listings, and send beta feedback.
 
-## Run the app
+## Local setup
 
-```bash
-npm start
+1. Copy `.env.example` to `.env.local`.
+2. Add the browser-safe Supabase project URL and publishable key.
+3. Run `supabase/production-setup.sql` in the Supabase SQL Editor.
+4. Create the public `sale-photos` Storage bucket.
+5. Optionally run `supabase/seed.sql`.
+6. Install and start:
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-Then open:
+Open `http://127.0.0.1:5173`.
 
-```text
-http://127.0.0.1:5173/
+## Production build
+
+```powershell
+pnpm run check
 ```
 
-Anyone using that same local server URL shares the same sale reports and confirmations. Favorites stay private on each device/browser.
+Vercel configuration is committed in `vercel.json`. See `docs/PRODUCTION_SETUP.md` for the complete dashboard and deployment checklist.
 
-## Hosted Sites demo
+## Security notes
 
-```bash
-npm run build
-```
-
-The hosted demo runs without the local Node API. Map data, sale reports, check-ins, photos, saved listings, profile settings, and route planning are stored in each visitor's browser for the demo session.
-
-## Data
-
-The server creates `data/sales.json` on first run. Deleting that file resets the shared sale board to demo sales.
-
-## Verify
-
-```bash
-npm test
-```
-
-
+- Never put a Supabase secret key or `service_role` key in a `VITE_` variable.
+- Every exposed application table has Row Level Security enabled.
+- Database privileges are granted explicitly because new Supabase projects no longer automatically expose new tables to the Data API.
+- Sale photo uploads are restricted to authenticated users and user-owned Storage folders.
+- The old file-backed `server.js` remains only as a Phase 1 reference and is not used by the Vercel production build.

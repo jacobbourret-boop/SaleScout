@@ -1,12 +1,41 @@
-﻿{
-    "name":  "salescout",
-    "version":  "0.1.0",
-    "private":  true,
-    "type":  "module",
-    "description":  "Phase 1 local MVP for crowdsourced garage sale discovery.",
-    "scripts":  {
-                    "start":  "node server.js",
-                    "build":  "node scripts/build-sites.mjs",
-                    "test":  "node scripts/api-smoke.mjs"
-                }
+{
+  "name": "salescout",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "start": "vite preview --host 127.0.0.1 --port 5173",
+    "dev": "vite --host 127.0.0.1",
+    "legacy:server": "node server.js",
+    "e2e:preview": "node scripts/e2e-preview.mjs",
+    "check": "vite build",
+    "smoke": "node scripts/api-smoke.mjs"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "shadcn": "^4.13.1",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.1.5"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@radix-ui/react-dialog": "^1.1.20",
+    "@radix-ui/react-select": "^2.3.4",
+    "@radix-ui/react-slot": "^1.3.0",
+    "@radix-ui/react-switch": "^1.3.4",
+    "@radix-ui/react-tabs": "^1.1.18",
+    "@radix-ui/react-toggle-group": "^1.1.16",
+    "@supabase/supabase-js": "2.112.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "motion": "^12.42.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwind-merge": "^3.6.0"
+  }
 }

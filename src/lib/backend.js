@@ -28,9 +28,11 @@ const FEEDBACK_TYPES = new Set(["busy", "great-deals", "worth-visiting", "lots-o
 export { isSupabaseConfigured };
 
 export function getPublicConfig() {
-  const requestedMapProvider = String(import.meta.env.VITE_SALESCOUT_MAP_PROVIDER || "local").toLowerCase();
-  const googleMapsApiKey = String(import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "");
-  const googleMapId = String(import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || "");
+  const googleMapsApiKey = String(import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "").trim();
+  const googleMapId = String(import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || "").trim();
+  const requestedMapProvider = String(
+    import.meta.env.VITE_SALESCOUT_MAP_PROVIDER || (googleMapsApiKey ? "google" : "local")
+  ).trim().toLowerCase();
   const appleMapKitToken = String(import.meta.env.VITE_APPLE_MAPKIT_JWT || "");
   const enabledAuthProviders = String(import.meta.env.VITE_AUTH_PROVIDERS || "")
     .split(",")
